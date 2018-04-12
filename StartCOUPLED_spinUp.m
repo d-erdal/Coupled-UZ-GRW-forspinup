@@ -1,4 +1,20 @@
-
+%% PROGRAM INFORMATION
+%---------------------------------------------------------------------
+% Created by: Daniel Erdal (daniel.erdal@uni-tuebingen.de)
+% Creations date: Autumn 2017
+%---------------------------------------------------------------------
+%
+% This file setup and starts the coupled 2.5-D model used for the spin-up
+% test. It can be run with either 20 or 500 unsaturated columns. The
+% program requires two setup files (for GRW and UZ) as well as some data
+% specified in the "data" folder. More information about the coupling
+% framwork can be found in runCoupled_V3p2.m
+%
+%---------------------------------------------------------------------
+% LATEST EDITION
+% Stripped version created for the publishing
+%
+%---------------------------------------------------------------------
 
 % Number of x-pixels per zone in the GRW
 np=50; % for the current problem: 50 --> 20 zones, 10 --> 500 zones
@@ -42,10 +58,11 @@ clear CC ax ay c a i j x y
 %% UZ and GRW model setups
 
 % Get the basic setups from the setup files
+% Groundwater flow model
 [GRW.solver,GRW.grwms,GRW.boundary]=setupGRW_spinUp();
+% Unsaturated zone model
 [UZ.geom,UZ.param,UZ.solver,UZ.time,UZ.boundary,UZ.kin,UZ.alpha,UZ.n,UZ.Ssat,UZ.Sres,UZ.poro,UZ.aKR]...
     =setupUZ_spinUp(COUP.UZindex);
-
 
 % Timing information
 GRW.grwms.dt=3600*12;  % Time step (= coupling time step) [s]
@@ -80,25 +97,7 @@ clear hEnd
 % ranginging from bed-rock until land surface
 load data/hUZ_Initial hUZ_Initial
 
-% % % % % % Load the parameters from the large scale 3D model and assign them to
-% % % % % % their appointed structures
-% % % % % load data/parameters_hetero Kms poroBLOCK
-% % % % % UZ.kin3D = Kms;
-% % % % % a=poroBLOCK;
-% % % % % a(poroBLOCK==0.1)=2.0; % rock
-% % % % % a(poroBLOCK==0.465)=1.28; % soil
-% % % % % a(poroBLOCK==0.43)=14.0; % gravel
-% % % % % UZ.alpha3D = a;
-% % % % % 
-% % % % % n=poroBLOCK;
-% % % % % n(poroBLOCK==0.1)=2.1; % rock
-% % % % % n(poroBLOCK==0.465)=1.6; % soil
-% % % % % n(poroBLOCK==0.43)=2.6; % gravel
-% % % % % UZ.n3D = n;
-% % % % % UZ.Ssat3D = UZ.Ssat;
-% % % % % UZ.Sres3D = UZ.Sres;
-% % % % % UZ.poro3D = poroBLOCK;
-% % % % % UZ.aKR3D = UZ.aKR;
+% Are the unsaturated columns all homogeneous?
 COUP.doUZhomo = false;
 
 % Saving: pick name of directory to save in
