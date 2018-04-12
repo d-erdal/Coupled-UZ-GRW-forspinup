@@ -1,6 +1,6 @@
 # Coupled-UZ-GRW-forspinup
 
-<i>or, 2.5-D subsurface flow model</i>
+<i>or, a simplified 2.5-D subsurface flow model</i>
 
 This Matlab program combines a stand-alone 2-D phreatic aquifer model (in the following: GRW)  with a small collection of 1-D stand-alone unsaturated zone (Richards equation) models (in the following: UZ) with the aim of simulating transient groundwater tables as well as transient unsaturated pressure heads.
 
